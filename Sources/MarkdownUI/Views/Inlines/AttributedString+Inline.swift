@@ -22,7 +22,7 @@ extension AttributedString {
     case .text(let content):
       self.init(content, attributes: attributes)
     case .softBreak:
-      self.init(" ", attributes: attributes)
+      self.init("\n", attributes: attributes)
     case .lineBreak:
       self.init("\n", attributes: attributes)
     case .code(let content):

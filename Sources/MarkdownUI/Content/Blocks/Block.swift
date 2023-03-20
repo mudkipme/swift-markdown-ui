@@ -21,17 +21,17 @@ extension Block {
       self = .blockquote(blockquote.blockChildren.compactMap(Block.init(node:)))
     case let list as Markdown.UnorderedList where list.listItems.contains { $0.checkbox != nil }:
       self = .taskList(
-        tight: false,
+        tight: true,
         items: list.listItems.compactMap(TaskListItem.init(node:))
       )
     case let list as Markdown.UnorderedList:
       self = .bulletedList(
-        tight: false,
+        tight: true,
         items: list.listItems.compactMap(ListItem.init(node:))
       )
     case let list as Markdown.OrderedList:
       self = .numberedList(
-        tight: false,
+        tight: true,
         start: Int(list.startIndex),
         items: list.listItems.compactMap(ListItem.init(node:))
       )

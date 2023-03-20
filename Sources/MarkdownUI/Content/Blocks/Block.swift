@@ -1,5 +1,5 @@
 import Foundation
-@_implementationOnly import cmark_gfm
+import Markdown
 
 enum Block: Hashable {
   case blockquote([Block])
@@ -10,58 +10,52 @@ enum Block: Hashable {
   case htmlBlock(String)
   case paragraph([Inline])
   case heading(level: Int, text: [Inline])
-  case table(columnAlignments: [TextTableColumnAlignment?], rows: [[[Inline]]])
+  case table(columnAlignments: [Markdown.Table.ColumnAlignment?], rows: [[[Inline]]])
   case thematicBreak
 }
 
 extension Block {
-  init?(node: CommonMarkNode) {
-    switch node.type {
-    case CMARK_NODE_BLOCK_QUOTE:
-      self = .blockquote(node.children.compactMap(Block.init(node:)))
-    case CMARK_NODE_LIST where node.hasTaskItems:
+  init?(node: BlockMarkup) {
+    switch node {
+    case let blockquote as Markdown.BlockQuote:
+      self = .blockquote(blockquote.blockChildren.compactMap(Block.init(node:)))
+    case let list as Markdown.UnorderedList where list.listItems.contains { $0.checkbox != nil }:
       self = .taskList(
-        tight: node.listTight,
-        items: node.children.compactMap(TaskListItem.init(node:))
+        tight: false,
+        items: list.listItems.compactMap(TaskListItem.init(node:))
       )
-    case CMARK_NODE_LIST where node.listType == CMARK_BULLET_LIST:
+    case let list as Markdown.UnorderedList:
       self = .bulletedList(
-        tight: node.listTight,
-        items: node.children.compactMap(ListItem.init(node:))
+        tight: false,
+        items: list.listItems.compactMap(ListItem.init(node:))
       )
-    case CMARK_NODE_LIST where node.listType == CMARK_ORDERED_LIST:
+    case let list as Markdown.OrderedList:
       self = .numberedList(
-        tight: node.listTight,
-        start: node.listStart,
-        items: node.children.compactMap(ListItem.init(node:))
+        tight: false,
+        start: Int(list.startIndex),
+        items: list.listItems.compactMap(ListItem.init(node:))
       )
-    case CMARK_NODE_CODE_BLOCK:
-      self = .codeBlock(info: node.fenceInfo, content: node.literal!)
-    case CMARK_NODE_HTML_BLOCK:
-      self = .htmlBlock(node.literal!)
-    case CMARK_NODE_PARAGRAPH:
-      self = .paragraph(node.children.compactMap(Inline.init(node:)))
-    case CMARK_NODE_HEADING:
-      self = .heading(level: node.headingLevel, text: node.children.compactMap(Inline.init(node:)))
-    case CMARK_NODE_TABLE:
+    case let codeBlock as Markdown.CodeBlock:
+      self = .codeBlock(info: codeBlock.language, content: codeBlock.code)
+    case let htmlBlock as Markdown.HTMLBlock:
+      self = .htmlBlock(htmlBlock.rawHTML)
+    case let paragraph as Markdown.Paragraph:
+      self = .paragraph(paragraph.inlineChildren.compactMap(Inline.init(node:)))
+    case let heading as Markdown.Heading:
+      self = .heading(level: heading.level, text: heading.inlineChildren.compactMap(Inline.init(node:)))
+    case let table as Markdown.Table:
       self = .table(
-        columnAlignments: node.tableAlignments.map(TextTableColumnAlignment.init),
-        rows: node.children.compactMap { rowNode in
-          guard rowNode.type == CMARK_NODE_TABLE_ROW else {
-            return nil
-          }
-          return rowNode.children.compactMap { cellNode in
-            guard cellNode.type == CMARK_NODE_TABLE_CELL else {
-              return nil
-            }
-            return cellNode.children.compactMap(Inline.init(node:))
+        columnAlignments: table.columnAlignments,
+        rows: table.body.rows.compactMap { rowNode in
+          return rowNode.cells.compactMap { cellNode in
+            return cellNode.inlineChildren.compactMap(Inline.init(node:))
           }
         }
       )
-    case CMARK_NODE_THEMATIC_BREAK:
+    case is Markdown.ThematicBreak:
       self = .thematicBreak
     default:
-      assertionFailure("Unknown block type '\(node.typeString)'")
+      assertionFailure("Unknown block type '\(node.debugDescription())'")
       return nil
     }
   }
@@ -74,45 +68,24 @@ extension Block {
 
 extension Array where Element == Block {
   init(markdown: String) {
-    let node = CommonMarkNode(markdown: markdown, extensions: .all, options: CMARK_OPT_DEFAULT)
-    let blocks = node?.children.compactMap(Block.init(node:)) ?? []
+    let node = Document(parsing: markdown)
+    let blocks = node.blockChildren.compactMap(Block.init(node:))
 
     self.init(blocks)
   }
 }
 
 extension ListItem {
-  fileprivate init?(node: CommonMarkNode) {
-    guard node.type == CMARK_NODE_ITEM else {
-      return nil
-    }
-    self.init(blocks: .init(node.children.compactMap(Block.init(node:))))
+  fileprivate init?(node: Markdown.ListItem) {
+    self.init(blocks: .init(node.blockChildren.compactMap(Block.init(node:))))
   }
 }
 
 extension TaskListItem {
-  fileprivate init?(node: CommonMarkNode) {
-    guard node.type == CMARK_NODE_ITEM else {
-      return nil
-    }
+  fileprivate init?(node: Markdown.ListItem) {
     self.init(
-      isCompleted: node.isTaskListItemChecked,
-      blocks: .init(node.children.compactMap(Block.init(node:)))
+      isCompleted: node.checkbox == .checked,
+      blocks: .init(node.blockChildren.compactMap(Block.init(node:)))
     )
-  }
-}
-
-extension TextTableColumnAlignment {
-  fileprivate init?(_ character: Character) {
-    switch character {
-    case "l":
-      self = .leading
-    case "c":
-      self = .center
-    case "r":
-      self = .trailing
-    default:
-      return nil
-    }
   }
 }

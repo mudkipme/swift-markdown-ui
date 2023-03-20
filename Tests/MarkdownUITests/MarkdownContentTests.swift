@@ -199,9 +199,9 @@ final class MarkdownContentTests: XCTestCase {
       MarkdownContent {
         TextTable {
           TextTableColumn(title: "Default", value: \.[0])
-          TextTableColumn(alignment: .leading, title: "Leading", value: \.[1])
+          TextTableColumn(alignment: .left, title: "Leading", value: \.[1])
           TextTableColumn(alignment: .center, title: "Center", value: \.[2])
-          TextTableColumn(alignment: .trailing, title: "Trailing", value: \.[3])
+          TextTableColumn(alignment: .right, title: "Trailing", value: \.[3])
         } rows: {
           TextTableRow(Array(repeating: "git status", count: 4))
           TextTableRow(Array(repeating: "git diff", count: 4))

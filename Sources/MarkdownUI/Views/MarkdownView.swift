@@ -188,7 +188,7 @@ import SwiftUI
 ///   }
 /// )
 /// ```
-public struct Markdown: View {
+public struct MarkdownView: View {
   @Environment(\.colorScheme) private var colorScheme
   @Environment(\.theme.text) private var text
 
@@ -226,7 +226,7 @@ public struct Markdown: View {
   }
 }
 
-extension Markdown {
+extension MarkdownView {
   /// Creates a Markdown view from a Markdown-formatted string.
   /// - Parameters:
   ///   - markdown: The string that contains the Markdown formatting.

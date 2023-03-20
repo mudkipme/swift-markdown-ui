@@ -43,7 +43,7 @@ public struct MarkdownImageHandler {
   }
 }
 
-extension Markdown {
+extension MarkdownView {
   @available(
     *,
     unavailable,
@@ -56,7 +56,7 @@ extension Markdown {
   public func setImageHandler(
     _ imageHandler: MarkdownImageHandler,
     forURLScheme urlScheme: String
-  ) -> Markdown {
+  ) -> MarkdownView {
     fatalError("Unimplemented")
   }
 }

@@ -1,4 +1,5 @@
 import SwiftUI
+import Markdown
 
 @available(iOS 16.0, macOS 13.0, tvOS 16.0, watchOS 9.0, *)
 struct TableView: View {
@@ -7,7 +8,7 @@ struct TableView: View {
   private let columnAlignments: [HorizontalAlignment]
   private let rows: [[[Inline]]]
 
-  init(columnAlignments: [TextTableColumnAlignment?], rows: [[[Inline]]]) {
+  init(columnAlignments: [Markdown.Table.ColumnAlignment?], rows: [[[Inline]]]) {
     self.columnAlignments = columnAlignments.map(HorizontalAlignment.init)
     self.rows = rows
   }
@@ -42,13 +43,13 @@ struct TableView: View {
 }
 
 extension HorizontalAlignment {
-  fileprivate init(_ tableColumnAlignment: TextTableColumnAlignment?) {
+  fileprivate init(_ tableColumnAlignment: Markdown.Table.ColumnAlignment?) {
     switch tableColumnAlignment {
-    case .none, .leading:
+    case .none, .left:
       self = .leading
     case .center:
       self = .center
-    case .trailing:
+    case .right:
       self = .trailing
     }
   }

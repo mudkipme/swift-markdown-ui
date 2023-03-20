@@ -27,7 +27,7 @@ struct ThemePreview: View {
   var body: some View {
     VStack {
       ForEach(self.colorSchemes, id: \.self) { colorScheme in
-        Markdown(content: self.content)
+        MarkdownView(content: self.content)
           .padding()
           .background()
           .colorScheme(colorScheme)

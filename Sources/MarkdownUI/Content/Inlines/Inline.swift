@@ -1,5 +1,5 @@
 import Foundation
-@_implementationOnly import cmark_gfm
+import Markdown
 
 enum Inline: Hashable {
   case text(String)
@@ -15,36 +15,36 @@ enum Inline: Hashable {
 }
 
 extension Inline {
-  init?(node: CommonMarkNode) {
-    switch node.type {
-    case CMARK_NODE_TEXT:
-      self = .text(node.literal!)
-    case CMARK_NODE_SOFTBREAK:
+  init?(node: InlineMarkup) {
+    switch node {
+    case let text as Markdown.Text:
+      self = .text(text.plainText)
+    case is Markdown.SoftBreak:
       self = .softBreak
-    case CMARK_NODE_LINEBREAK:
+    case is Markdown.LineBreak:
       self = .lineBreak
-    case CMARK_NODE_CODE:
-      self = .code(node.literal!)
-    case CMARK_NODE_HTML_INLINE:
-      self = .html(node.literal!)
-    case CMARK_NODE_EMPH:
-      self = .emphasis(node.children.compactMap(Inline.init(node:)))
-    case CMARK_NODE_STRONG:
-      self = .strong(node.children.compactMap(Inline.init(node:)))
-    case CMARK_NODE_STRIKETHROUGH:
-      self = .strikethrough(node.children.compactMap(Inline.init(node:)))
-    case CMARK_NODE_LINK:
+    case let code as Markdown.InlineCode:
+      self = .code(code.code)
+    case let html as Markdown.InlineHTML:
+      self = .html(html.rawHTML)
+    case let emphasis as Markdown.Emphasis:
+      self = .emphasis(emphasis.inlineChildren.compactMap(Inline.init(node:)))
+    case let strong as Markdown.Strong:
+      self = .strong(strong.inlineChildren.compactMap(Inline.init(node:)))
+    case let strikethrough as Markdown.Strikethrough:
+      self = .strikethrough(strikethrough.inlineChildren.compactMap(Inline.init(node:)))
+    case let link as Markdown.Link:
       self = .link(
-        destination: node.url ?? "",
-        children: node.children.compactMap(Inline.init(node:))
+        destination: link.destination ?? "",
+        children: link.inlineChildren.compactMap(Inline.init(node:))
       )
-    case CMARK_NODE_IMAGE:
+    case let image as Markdown.Image:
       self = .image(
-        source: node.url ?? "",
-        children: node.children.compactMap(Inline.init(node:))
+        source: image.source ?? "",
+        children: image.inlineChildren.compactMap(Inline.init(node:))
       )
     default:
-      assertionFailure("Unknown inline type '\(node.typeString)'")
+      assertionFailure("Unknown inline type '\(node.debugDescription())'")
       return nil
     }
   }

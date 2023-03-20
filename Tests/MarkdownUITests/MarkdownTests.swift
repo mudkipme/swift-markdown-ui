@@ -9,7 +9,7 @@
     private let layout = SwiftUISnapshotLayout.device(config: .iPhone8)
 
     func testBlockquote() {
-      let view = Markdown {
+      let view = MarkdownView {
         #"""
         If you'd like to quote someone, use the > character before the line.
         Blockquotes can be nested, and can also contain other formatting.
@@ -38,7 +38,7 @@
     }
 
     func testCodeBlock() {
-      let view = Markdown {
+      let view = MarkdownView {
         #"""
         Use a group to collect multiple views into a single instance,
         without affecting the layout of those views. After creating a
@@ -64,7 +64,7 @@
     }
 
     func testVerbatimHTML() {
-      let view = Markdown {
+      let view = MarkdownView {
         #"""
         A `Markdown` view ignores HTML blocks and renders
         them as verbatim text.
@@ -83,7 +83,7 @@
     }
 
     func testOpenCodeBlock() {
-      let view = Markdown {
+      let view = MarkdownView {
         #"""
         An empty code block without a closing fence:
 
@@ -97,7 +97,7 @@
     }
 
     func testParagraphs() {
-      let view = Markdown {
+      let view = MarkdownView {
         #"""
         The sky above the port was the color of television, tuned to a dead channel.
 
@@ -115,7 +115,7 @@
     }
 
     func testCenteredParagraphs() {
-      let view = Markdown {
+      let view = MarkdownView {
         #"""
         The sky above the port was the color of television, tuned to a dead channel.
 
@@ -134,7 +134,7 @@
     }
 
     func testTrailingParagraphs() {
-      let view = Markdown {
+      let view = MarkdownView {
         #"""
         The sky above the port was the color of television, tuned to a dead channel.
 
@@ -153,7 +153,7 @@
     }
 
     func testSpacing() {
-      let view = Markdown {
+      let view = MarkdownView {
         #"""
         The sky above the port was the color of television, tuned to a dead channel.
 
@@ -174,7 +174,7 @@
     }
 
     func testHeadings() {
-      let view = Markdown {
+      let view = MarkdownView {
         #"""
         # Heading 1
         The sky above the port was the color of television, tuned to a dead channel.
@@ -197,7 +197,7 @@
     }
 
     func testThematicBreak() {
-      let view = Markdown {
+      let view = MarkdownView {
         #"""
         # SwiftUI
 
@@ -223,7 +223,7 @@
     }
 
     func testInlines() {
-      let view = Markdown {
+      let view = MarkdownView {
         #"""
         **This is bold text**
 
@@ -249,7 +249,7 @@
     }
 
     func testInlinesStyling() {
-      let view = Markdown {
+      let view = MarkdownView {
         #"""
         **This is bold text**
 

@@ -14,7 +14,7 @@
         throw XCTSkip("Table rendering is not available")
       }
 
-      let view = Markdown {
+      let view = MarkdownView {
         #"""
         A table with some padding:
 
@@ -37,7 +37,7 @@
         throw XCTSkip("Table rendering is not available")
       }
 
-      let view = Markdown {
+      let view = MarkdownView {
         #"""
         A table with some padding:
 
@@ -60,7 +60,7 @@
         throw XCTSkip("Table rendering is not available")
       }
 
-      let view = Markdown {
+      let view = MarkdownView {
         #"""
         A table with some padding:
 
@@ -86,7 +86,7 @@
         throw XCTSkip("Table rendering is not available")
       }
 
-      let view = Markdown {
+      let view = MarkdownView {
         #"""
         A table with some padding:
 
@@ -107,7 +107,7 @@
         throw XCTSkip("Table rendering is not available")
       }
 
-      let view = Markdown {
+      let view = MarkdownView {
         #"""
         A table with some padding:
 
@@ -130,7 +130,7 @@
         throw XCTSkip("Table rendering is not available")
       }
 
-      let view = Markdown {
+      let view = MarkdownView {
         #"""
         A table with some padding:
 
@@ -160,7 +160,7 @@
         throw XCTSkip("Table rendering is not available")
       }
 
-      let view = Markdown {
+      let view = MarkdownView {
         #"""
         A table with some padding:
 

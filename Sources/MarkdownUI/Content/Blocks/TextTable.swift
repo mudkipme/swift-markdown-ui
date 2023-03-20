@@ -1,4 +1,5 @@
 import Foundation
+import Markdown
 
 /// A Markdown table element.
 ///
@@ -62,10 +63,10 @@ public struct TextTable: MarkdownContentProtocol {
     .init(blocks: [.table(columnAlignments: self.columnAlignments, rows: self.rows)])
   }
 
-  private let columnAlignments: [TextTableColumnAlignment?]
+  private let columnAlignments: [Markdown.Table.ColumnAlignment?]
   private let rows: [[[Inline]]]
 
-  init(columnAlignments: [TextTableColumnAlignment?], rows: [[[Inline]]]) {
+  init(columnAlignments: [Markdown.Table.ColumnAlignment?], rows: [[[Inline]]]) {
     self.columnAlignments = columnAlignments
     self.rows = rows
   }

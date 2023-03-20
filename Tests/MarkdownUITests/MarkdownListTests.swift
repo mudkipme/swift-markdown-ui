@@ -9,7 +9,7 @@
     private let layout = SwiftUISnapshotLayout.device(config: .iPhone8)
 
     func testTaskList() {
-      let view = Markdown {
+      let view = MarkdownView {
         #"""
         - [x] A finished task
         - [ ] An unfinished task
@@ -23,7 +23,7 @@
     }
 
     func testBulletedList() {
-      let view = Markdown {
+      let view = MarkdownView {
         #"""
         * Systems
           * FFF units
@@ -40,7 +40,7 @@
     }
 
     func testBulletedDashedList() {
-      let view = Markdown {
+      let view = MarkdownView {
         #"""
         * Systems
           * FFF units
@@ -58,7 +58,7 @@
     }
 
     func testNumberedList() {
-      let view = Markdown {
+      let view = MarkdownView {
         #"""
         This is an incomplete list of headgear:
 
@@ -85,7 +85,7 @@
     }
 
     func testRomanNumberedList() {
-      let view = Markdown {
+      let view = MarkdownView {
         #"""
         This is an incomplete list of headgear:
 
@@ -107,7 +107,7 @@
     }
 
     func testLooseList() {
-      let view = Markdown {
+      let view = MarkdownView {
         #"""
         A loose list:
 

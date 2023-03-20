@@ -1,4 +1,5 @@
 import Foundation
+import Markdown
 
 /// A column that displays styled text or images for each row in a table element.
 ///
@@ -19,7 +20,7 @@ import Foundation
 /// TextTableColumn(title: "Name", value: \.name)
 /// ```
 public struct TextTableColumn<RowValue> {
-  let alignment: TextTableColumnAlignment?
+  let alignment: Markdown.Table.ColumnAlignment?
   let title: InlineContent
   let content: (RowValue) -> InlineContent
 
@@ -29,7 +30,7 @@ public struct TextTableColumn<RowValue> {
   ///   - title: An inline content builder that returns the styled title of the column.
   ///   - content: An inline content builder that returns the styled content for each row value of the column.
   public init(
-    alignment: TextTableColumnAlignment? = nil,
+    alignment: Markdown.Table.ColumnAlignment? = nil,
     @InlineContentBuilder title: () -> InlineContent,
     @InlineContentBuilder content: @escaping (RowValue) -> InlineContent
   ) {
@@ -44,7 +45,7 @@ public struct TextTableColumn<RowValue> {
   ///   - title: An inline content builder that returns the styled title of the column.
   ///   - value: The path to the property associated with the column.
   public init<V>(
-    alignment: TextTableColumnAlignment? = nil,
+    alignment: Markdown.Table.ColumnAlignment? = nil,
     @InlineContentBuilder title: () -> InlineContent,
     value: KeyPath<RowValue, V>
   ) where V: LosslessStringConvertible {
@@ -59,7 +60,7 @@ public struct TextTableColumn<RowValue> {
   ///   - title: The title of the column.
   ///   - content: An inline content builder that returns the styled content for each row value of the column.
   public init(
-    alignment: TextTableColumnAlignment? = nil,
+    alignment: Markdown.Table.ColumnAlignment? = nil,
     title: String,
     @InlineContentBuilder content: @escaping (RowValue) -> InlineContent
   ) {
@@ -72,7 +73,7 @@ public struct TextTableColumn<RowValue> {
   ///   - title: The title of the column.
   ///   - value: The path to the property associated with the column.
   public init<V>(
-    alignment: TextTableColumnAlignment? = nil,
+    alignment: Markdown.Table.ColumnAlignment? = nil,
     title: String,
     value: KeyPath<RowValue, V>
   ) where V: LosslessStringConvertible {

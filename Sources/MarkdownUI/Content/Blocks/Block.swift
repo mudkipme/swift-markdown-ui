@@ -85,7 +85,8 @@ extension TaskListItem {
   fileprivate init?(node: Markdown.ListItem) {
     self.init(
       isCompleted: node.checkbox == .checked,
-      blocks: .init(node.blockChildren.compactMap(Block.init(node:)))
+      blocks: .init(node.blockChildren.compactMap(Block.init(node:))),
+      node: node
     )
   }
 }

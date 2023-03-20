@@ -11,7 +11,7 @@ struct TaskListItemView: View {
     Label {
       BlockSequence(self.item.blocks)
     } icon: {
-      ApplyBlockStyle(\.taskListMarker, configuration: .init(isCompleted: self.item.isCompleted))
+      ApplyBlockStyle(\.taskListMarker, configuration: .init(isCompleted: self.item.isCompleted, node: self.item.node))
         .textStyleFont()
     }
   }

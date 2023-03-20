@@ -44,7 +44,7 @@ extension Array where Element == Block {
 
 extension TaskListItem {
   fileprivate func colorScheme(_ colorScheme: ColorScheme) -> Self {
-    .init(isCompleted: self.isCompleted, blocks: self.blocks.colorScheme(colorScheme))
+    .init(isCompleted: self.isCompleted, blocks: self.blocks.colorScheme(colorScheme), node: self.node)
   }
 }
 

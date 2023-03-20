@@ -35,9 +35,9 @@ final class TaskListContentBuilderTests: XCTestCase {
     // then
     XCTAssertEqual(
       [
-        .init(isCompleted: false, blocks: [.paragraph([.text("Flour")])]),
-        .init(isCompleted: true, blocks: [.paragraph([.text("Cheese")])]),
-        .init(isCompleted: false, blocks: [.paragraph([.text("Tomatoes")])]),
+        .init(isCompleted: false, blocks: [.paragraph([.text("Flour")])], node: nil),
+        .init(isCompleted: true, blocks: [.paragraph([.text("Cheese")])], node: nil),
+        .init(isCompleted: false, blocks: [.paragraph([.text("Tomatoes")])], node: nil),
       ],
       result
     )
@@ -57,10 +57,10 @@ final class TaskListContentBuilderTests: XCTestCase {
     // then
     XCTAssertEqual(
       [
-        .init(isCompleted: false, blocks: [.paragraph([.text("0")])]),
-        .init(isCompleted: false, blocks: [.paragraph([.text("1")])]),
-        .init(isCompleted: false, blocks: [.paragraph([.text("2")])]),
-        .init(isCompleted: false, blocks: [.paragraph([.text("3")])]),
+        .init(isCompleted: false, blocks: [.paragraph([.text("0")])], node: nil),
+        .init(isCompleted: false, blocks: [.paragraph([.text("1")])], node: nil),
+        .init(isCompleted: false, blocks: [.paragraph([.text("2")])], node: nil),
+        .init(isCompleted: false, blocks: [.paragraph([.text("3")])], node: nil),
       ],
       result
     )
@@ -82,8 +82,8 @@ final class TaskListContentBuilderTests: XCTestCase {
     // then
     XCTAssertEqual(
       [
-        .init(isCompleted: false, blocks: [.paragraph([.text("Something is:")])]),
-        .init(isCompleted: true, blocks: [.paragraph([.text("true")])]),
+        .init(isCompleted: false, blocks: [.paragraph([.text("Something is:")])], node: nil),
+        .init(isCompleted: true, blocks: [.paragraph([.text("true")])], node: nil),
       ],
       result
     )
@@ -108,15 +108,15 @@ final class TaskListContentBuilderTests: XCTestCase {
     // then
     XCTAssertEqual(
       [
-        .init(isCompleted: false, blocks: [.paragraph([.text("Something is:")])]),
-        .init(isCompleted: true, blocks: [.paragraph([.text("true")])]),
+        .init(isCompleted: false, blocks: [.paragraph([.text("Something is:")])], node: nil),
+        .init(isCompleted: true, blocks: [.paragraph([.text("true")])], node: nil),
       ],
       result1
     )
     XCTAssertEqual(
       [
-        .init(isCompleted: false, blocks: [.paragraph([.text("Something is:")])]),
-        .init(isCompleted: false, blocks: [.paragraph([.text("false")])]),
+        .init(isCompleted: false, blocks: [.paragraph([.text("Something is:")])], node: nil),
+        .init(isCompleted: false, blocks: [.paragraph([.text("false")])], node: nil),
       ],
       result2
     )

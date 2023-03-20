@@ -1,4 +1,5 @@
 import SwiftUI
+import Markdown
 
 /// The properties of a task list marker in a Markdown list.
 ///
@@ -7,6 +8,7 @@ import SwiftUI
 public struct TaskListMarkerConfiguration {
   /// Determines whether the item to which the marker applies is completed or not.
   public let isCompleted: Bool
+  public let node: Markdown.ListItem?
 }
 
 extension BlockStyle where Configuration == TaskListMarkerConfiguration {

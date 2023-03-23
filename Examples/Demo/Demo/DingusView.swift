@@ -23,7 +23,7 @@ struct DingusView: View {
       }
 
       Section("Preview") {
-        Markdown(self.markdown)
+        MarkdownView(self.markdown)
       }
     }
   }

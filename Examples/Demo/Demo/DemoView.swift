@@ -49,7 +49,7 @@ struct DemoView<Content: View>: View {
       if let about {
         Section {
           DisclosureGroup("About this demo") {
-            Markdown {
+            MarkdownView {
               about
             }
           }
@@ -87,7 +87,7 @@ struct DemoView_Previews: PreviewProvider {
     DemoView {
       "Add some text **describing** what this demo is about."
     } content: {
-      Markdown {
+      MarkdownView {
         Heading(.level2) {
           "Title"
         }

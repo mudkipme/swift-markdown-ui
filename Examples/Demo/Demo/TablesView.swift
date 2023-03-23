@@ -42,7 +42,7 @@ struct TablesView: View {
 
   var body: some View {
     DemoView {
-      Markdown(self.content)
+      MarkdownView(self.content)
     }
   }
 }

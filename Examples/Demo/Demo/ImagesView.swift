@@ -34,14 +34,14 @@ struct ImagesView: View {
 
   var body: some View {
     DemoView {
-      Markdown(self.content)
+      MarkdownView(self.content)
 
       Section("Inline images") {
-        Markdown(self.inlineImageContent)
+        MarkdownView(self.inlineImageContent)
       }
 
       Section("Customization Example") {
-        Markdown(self.content)
+        MarkdownView(self.content)
       }
       .markdownBlockStyle(\.image) { label in
         label

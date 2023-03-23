@@ -18,7 +18,7 @@ struct RepositoryReadmeView: View {
   var body: some View {
     Form {
       DisclosureGroup("About this demo") {
-        Markdown {
+        MarkdownView {
           self.about
         }
       }
@@ -81,9 +81,9 @@ private struct ReadmeView: View {
   private var content: some View {
     Group {
       if let response, let content = response.decodedContent {
-        Markdown(content, baseURL: response.baseURL, imageBaseURL: response.imageBaseURL)
+        MarkdownView(content, baseURL: response.baseURL, imageBaseURL: response.imageBaseURL)
       } else {
-        Markdown("Oops! Something went wrong while fetching the README file.")
+        MarkdownView("Oops! Something went wrong while fetching the README file.")
       }
     }
     .padding()

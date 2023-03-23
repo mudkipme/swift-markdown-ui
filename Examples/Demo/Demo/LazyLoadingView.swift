@@ -40,13 +40,13 @@ struct LazyLoadingView: View {
     ScrollView {
       LazyVStack {
         DisclosureGroup("About this demo") {
-          Markdown {
+          MarkdownView {
             self.about
           }
           .frame(maxWidth: .infinity, alignment: .leading)
         }
         ForEach(self.items) { item in
-          Markdown(item.content)
+          MarkdownView(item.content)
             .padding()
         }
       }

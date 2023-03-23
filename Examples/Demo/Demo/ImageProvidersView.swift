@@ -35,11 +35,11 @@ struct ImageProvidersView: View {
 
   var body: some View {
     DemoView {
-      Markdown(self.content)
+      MarkdownView(self.content)
         .markdownImageProvider(.webImage)
 
       Section("Image Assets") {
-        Markdown(self.otherContent)
+        MarkdownView(self.otherContent)
           .markdownImageProvider(.asset)
           .markdownInlineImageProvider(.asset)
       }
